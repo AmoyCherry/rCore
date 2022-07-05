@@ -20,6 +20,7 @@ use buddy_system_allocator::LockedHeap;
 use syscall::*;
 
 const USER_HEAP_SIZE: usize = 1024 * 1024;
+//const USER_HEAP_SIZE: usize = 0x80_0000;
 
 static mut HEAP_SPACE: [u8; USER_HEAP_SIZE] = [0; USER_HEAP_SIZE];
 
@@ -69,6 +70,10 @@ bitflags! {
         const CREATE = 1 << 9;
         const TRUNC = 1 << 10;
     }
+}
+
+pub fn shut_done() -> isize {
+    sys_shut_done()
 }
 
 pub fn dup(fd: usize) -> isize {

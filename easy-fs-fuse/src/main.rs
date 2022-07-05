@@ -73,6 +73,7 @@ fn easy_fs_pack() -> std::io::Result<()> {
         })
         .collect();
     for app in apps {
+        if app == "" { continue; }
         // load app data from host file system
         let mut host_file = File::open(format!("{}{}", target_path, app)).unwrap();
         let mut all_data: Vec<u8> = Vec::new();

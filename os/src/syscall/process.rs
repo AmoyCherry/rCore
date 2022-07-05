@@ -1,5 +1,6 @@
 use crate::fs::{open_file, OpenFlags};
 use crate::mm::{translated_ref, translated_refmut, translated_str};
+use crate::sbi::shutdown;
 use crate::task::{
     current_process, current_task, current_user_token, exit_current_and_run_next, pid2process,
     suspend_current_and_run_next, SignalFlags,
@@ -117,4 +118,9 @@ pub fn sys_kill(pid: usize, signal: u32) -> isize {
     } else {
         -1
     }
+}
+
+pub fn sys_shut_done() -> isize {
+    shutdown(0);
+    0
 }

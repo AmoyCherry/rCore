@@ -26,6 +26,8 @@ const SYSCALL_CONDVAR_CREATE: usize = 1030;
 const SYSCALL_CONDVAR_SIGNAL: usize = 1031;
 const SYSCALL_CONDVAR_WAIT: usize = 1032;
 
+const SYSCALL_SHUT_DONE: usize = 555;
+
 fn syscall(id: usize, args: [usize; 3]) -> isize {
     let mut ret: isize;
     unsafe {
@@ -38,6 +40,10 @@ fn syscall(id: usize, args: [usize; 3]) -> isize {
         );
     }
     ret
+}
+
+pub fn sys_shut_done() -> isize {
+    syscall(SYSCALL_SHUT_DONE, [0, 0, 0])
 }
 
 pub fn sys_dup(fd: usize) -> isize {
